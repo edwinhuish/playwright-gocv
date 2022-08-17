@@ -42,4 +42,11 @@ RUN curl -Lo opencv.zip https://github.com/opencv/opencv/archive/${OPENCV_VERSIO
     make preinstall && make install && ldconfig && \
     cd / && rm -rf opencv*
 
+
+RUN wget -c https://go.dev/dl/go1.19.linux-amd64.tar.gz -O - | sudo tar -xz -C /usr/local && \
+    echo 'export PATH=$PATH:/usr/local/go/bin' >> /etc/profile && \
+    echo 'export GOPATH="/go"' >> /etc/profile && \
+    mkdir /go && \
+    chown 1000:1000 /go -R
+
 CMD ["go version"]
