@@ -48,7 +48,4 @@ RUN wget -c https://go.dev/dl/go1.19.linux-amd64.tar.gz -O - | tar -xz -C /usr/l
     mkdir /go && \
     chown 1000:1000 /go -R
 
-# 删除旧浏览器
-RUN rm -rf /ms-playwright/webkit-* /ms-playwright/firefox-* /ms-playwright/chromium-*
-
 CMD ["go version"]
