@@ -48,4 +48,11 @@ RUN wget -c https://go.dev/dl/go1.19.linux-amd64.tar.gz -O - | tar -xz -C /usr/l
     mkdir /go && \
     chown 1000:1000 /go -R
 
+RUN cd /root && \
+    touch go.mod && \
+    go mod edit -module=tmp-mod && \
+    go get github.com/playwright-community/playwright-go && \
+    go run github.com/playwright-community/playwright-go/cmd/playwright install --with-deps && \
+    rm go.mod go.sum
+
 CMD ["go version"]
