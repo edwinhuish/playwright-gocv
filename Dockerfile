@@ -5,7 +5,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl ca-certificates libcurl4-openssl-dev libssl-dev \
     libavcodec-dev libavformat-dev libswscale-dev libtbb2 libtbb-dev \
     libjpeg-dev libpng-dev libtiff-dev libdc1394-22-dev sudo && \
-    echo 'pwuser  ALL=(ALL) /bin/su' >>  /etc/sudoers && \
+    usermod -a -G sudo pwuser && \
     echo "pwuser:pwuser" | chpasswd && \
     rm -rf /var/lib/apt/lists/*
 
@@ -40,5 +40,3 @@ RUN curl -Lo opencv.zip https://github.com/opencv/opencv/archive/${OPENCV_VERSIO
     make -j $(nproc --all) && \
     make preinstall && make install && ldconfig && \
     cd / && rm -rf opencv*
-
-CMD ["go version"]
