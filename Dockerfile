@@ -5,7 +5,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl ca-certificates libcurl4-openssl-dev libssl-dev \
     libavcodec-dev libavformat-dev libswscale-dev libtbb2 libtbb-dev \
     libjpeg-dev libpng-dev libtiff-dev libdc1394-22-dev sudo && \
-    echo 'pwuser  ALL=(ALL) /bin/su' >>  /etc/sudoers && \
+    usermod -a -G sudo pwuser && \
     echo "pwuser:pwuser" | chpasswd && \
     rm -rf /var/lib/apt/lists/*
 
@@ -42,7 +42,7 @@ RUN curl -Lo opencv.zip https://github.com/opencv/opencv/archive/${OPENCV_VERSIO
     cd / && rm -rf opencv*
 
 
-RUN wget -c https://go.dev/dl/go1.19.linux-amd64.tar.gz -O - | sudo tar -xz -C /usr/local && \
+RUN wget -c https://go.dev/dl/go1.19.linux-amd64.tar.gz -O - | tar -xz -C /usr/local && \
     echo 'export PATH=$PATH:/usr/local/go/bin' >> /etc/profile && \
     echo 'export GOPATH="/go"' >> /etc/profile && \
     mkdir /go && \
